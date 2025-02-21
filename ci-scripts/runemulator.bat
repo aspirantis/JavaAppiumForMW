@@ -1,0 +1,1 @@
+start emulator -avd pixel9proxl
