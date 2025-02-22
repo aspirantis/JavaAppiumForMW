@@ -14,7 +14,6 @@ import tests.SearchTests;
         ArticleTests.class,
         ChangeAppConditionTests.class,
         MyListTests.class
-//        GetStatedTest.class,
 })
 
 public class TestSuite {

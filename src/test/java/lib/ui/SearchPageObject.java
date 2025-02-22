@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.android.AndroidDriver;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -36,7 +37,7 @@ abstract public class SearchPageObject extends MainPageObject
     }
     /* TEMPLATES METHODS */
 
-
+    @Step("Initializing the search field")
     public void initSearchInput()
     {
         this.waitForElementAndClick(SEARCH_SKIP_ELEMENT, "Cannot find and click SKIP button!", 5);
@@ -44,38 +45,38 @@ abstract public class SearchPageObject extends MainPageObject
         this.waitForElementPresent(SEARCH_INPUT, "Cannot find search init element after clicking!", 5);
     }
 
-    public void initSearchInputMW()
-    {
-        this.waitForElementAndClick(SEARCH_INPUT, "Cannot find and click search init element!", 5);
-        this.waitForElementPresent(SEARCH_INPUT, "Cannot find search init element after clicking!", 5);
-    }
-
+    @Step("Waiting for button to cancel search result")
     public void waitForCancelButtonToAppear()
     {
         this.waitForElementPresent(SEARCH_CLOSE_BUTTON, "Cannot find search close button!", 5);
     }
 
+    @Step("Waiting for search cancel button to disappear")
     public void waitForCancelButtonToDisappear()
     {
         this.waitForElementNotPresent(SEARCH_CLOSE_BUTTON, "Search close button is still present!", 5);
     }
 
+    @Step("Clicking button to cancel search result")
     public void clickCloseSearch()
     {
         this.waitForElementAndClick(SEARCH_CLOSE_BUTTON, "Cannot find and click search close button!", 5);
     }
 
+    @Step("Typing '{search_line}' to the search line")
     public void typeSearchLine(String search_line)
     {
         this.waitForElementAndSendKeys(SEARCH_TEXT, search_line,"Cannot find and type into search input", 5);
     }
 
+    @Step("Waiting for search results")
     public void waitForSearchResult(String title)
     {
         String search_result_xpath = getResultSearchElement(title);
         this.waitForElementPresent(search_result_xpath, "Cannot find search result with substring " + title, 5);
     }
 
+    @Step("Waiting for search results and select an article by its title and description")
     public void waitForElementByTitleAndDescription(String title, String description)
     {
         String search_result_xpath = getResultSearchElementByTitleAndDescription(title, description);
@@ -89,6 +90,7 @@ abstract public class SearchPageObject extends MainPageObject
         this.waitForElementAndClick(search_result_xpath, "Cannot find and click search result with substring ", 10);
     }
 
+    @Step("Clicking on article, selected by title and description")
     public void clickByArticleWithTitleAndDescription(String title, String description)
     {
         String search_result_xpath = getResultSearchElementByTitleAndDescription(title, description);

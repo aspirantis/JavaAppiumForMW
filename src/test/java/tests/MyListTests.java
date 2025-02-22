@@ -1,6 +1,8 @@
 package tests;
 
 import io.appium.java_client.android.AndroidDriver;
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.ui.ArticlePageObject;
 import lib.ui.MyListsPageObject;
@@ -15,6 +17,11 @@ import org.junit.Test;
 public class MyListTests extends CoreTestCase
 {
     @Test
+    @Features(value={@Feature(value="Save artilces to the reading list")})
+    @DisplayName("Save two articles in reading list of the app")
+    @Description("Save 'Java (programming language)' and 'Appium' articles to the reading list")
+    @Step("Starting test testChangeScreenOrientationOnSearchResults")
+    @Severity(value=SeverityLevel.NORMAL)
     public void testSaveTwoArticlesToMyList() throws InterruptedException
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get((AndroidDriver) driver);
