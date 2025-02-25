@@ -52,10 +52,9 @@ public class MyListTests extends CoreTestCase
         if (lib.Platform.getInstance().isMW()) {
             AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
             Auth.clickAuthButton();
-            Thread.sleep(5);
             Auth.enterLoginData(login, password);
             Auth.submitForm();
-            Auth.skipPasswordChange();
+//            Auth.skipPasswordChange();
 
             ArticlePageObject.waitForTitleElement1();
             assertEquals("We are not on the same page after login!", first_article_title, ArticlePageObject.getArticleTitle1());
