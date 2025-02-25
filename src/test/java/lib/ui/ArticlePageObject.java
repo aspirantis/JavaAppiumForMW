@@ -2,8 +2,10 @@ package lib.ui;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.qameta.allure.Step;
+import lib.Platform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 abstract public class ArticlePageObject extends MainPageObject
 {
@@ -14,13 +16,15 @@ abstract public class ArticlePageObject extends MainPageObject
         FOOTER_ELEMENT,
         SAVE_BUTTON,
         ADD_TO_LIST_BUTTON,
+        OPTIONS_REMOVE_FROM_MY_LIST_BUTTON,
         INPUT_READING_LIST_NAME,
         INPUT_READING_LIST_DESCRIPTION,
         OK_BUTTON,
         VIEW_LIST,
-        SEARCH_FROM_ARTICLE;
+        SEARCH_FROM_ARTICLE,
+        CLOSE_ARTICLE_BUTTON;
 
-    public ArticlePageObject(AndroidDriver driver)
+    public ArticlePageObject(RemoteWebDriver driver)
     {
         super(driver);
     }
@@ -55,9 +59,19 @@ abstract public class ArticlePageObject extends MainPageObject
         return titleElement.getText();
     }
 
+    @Step("Waiting for title of article3")
+    public String getArticleTitle3() {
+        WebElement titleElement = waitForTitleElement3();
+        screenshot(this.takeScreenshot("article3_title"));
+
+        return titleElement.getText();
+    }
+
+
+
     @Step("Swipe to the footer of article")
     public void swipeToFooter() throws InterruptedException {
-        this.swipeUpToFindElement((FOOTER_ELEMENT), "Cannot find the end of srticle!", 20);
+        this.swipeUpToFindElement((FOOTER_ELEMENT), "Cannot find the end of article!", 20);
     }
 
     @Step("Add article to the reading list for the first time")
@@ -115,6 +129,22 @@ abstract public class ArticlePageObject extends MainPageObject
                 5);
     }
 
+    public void addArticleToMySaved() throws InterruptedException {
+        if (Platform.getInstance().isMW()) {
+            this.removeArticleFromMyListIfAdded();
+        } this.waitForElementAndClick(ADD_TO_LIST_BUTTON, "Cannot find button to add an article in reading " +
+                "list after removing it from this list before!", 5);
+    }
+
+    public void removeArticleFromMyListIfAdded() throws InterruptedException {
+        if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON)) {
+            this.waitForElementAndClick(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON, "Cannot click button to remove " +
+                    "article from saved!", 2);
+            this.waitForElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON, "Cannot find button to add article " +
+                    "to saved list after removing from this list before! ", 5);
+        }
+    }
+
     @Step("Search content from article1")
     public void searchFromArticle() {
         this.waitForElementAndClick(
@@ -126,5 +156,13 @@ abstract public class ArticlePageObject extends MainPageObject
     @Step("Check on presence of the title og article")
     public void assertTitlePresent() throws InterruptedException {
         this.assertElementPresent((TITLE2), "There are several elements on page");
+    }
+
+    public void closeArticle() {
+        if (Platform.getInstance().isIOS() || Platform.getInstance().isAndroid()) {
+            this.waitForElementAndClick(CLOSE_ARTICLE_BUTTON, "Cannot close article, cannot find X link!", 5);
+        } else {
+            System.out.println("Method closeArticle do nothing for platform" + Platform.getInstance().getPlatformVar());
+        }
     }
 }

@@ -152,7 +152,27 @@ public class MainPageObject
         By by = this.getLocatorByString(locator);
         List<WebElement> elements = driver.findElements(by);
         return elements.size();
+    }
 
+    public boolean isElementPresent(String locator) throws InterruptedException {
+        return getAmountOfElements(locator) >0;
+    }
+
+    public void tryClickElementWithFewAttempts(String locator, String error_message, int amount_of_attempts) {
+        int current_attempts = 0;
+        boolean need_more_attempts = true;
+
+        while (need_more_attempts) {
+            try {
+                this.waitForElementAndClick(locator, error_message, 2);
+                need_more_attempts = false;
+            } catch (Exception e) {
+                if (current_attempts > amount_of_attempts) {
+                    this.waitForElementAndClick(locator, error_message, 2);
+                }
+            }
+            ++ current_attempts;
+        }
     }
 
 

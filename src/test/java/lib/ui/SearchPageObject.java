@@ -45,6 +45,15 @@ abstract public class SearchPageObject extends MainPageObject
         this.waitForElementPresent(SEARCH_INPUT, "Cannot find search init element after clicking!", 5);
     }
 
+    @Step("Initializing the search field")
+    public void initSearchInputMW()
+    {
+//        this.waitForElementPresent(SEARCH_INPUT, "Cannot find search init element after clicking!", 5);
+        this.waitForElementAndClick(SEARCH_SKIP_ELEMENT, "Cannot find and click SKIP button!", 5);
+        this.waitForElementPresent(SEARCH_TEXT, "Cannot find search init element after clicking!", 5);
+        this.waitForElementAndClick(SEARCH_TEXT, "Cannot find and click search init element!", 5);
+    }
+
     @Step("Waiting for button to cancel search result")
     public void waitForCancelButtonToAppear()
     {
@@ -69,11 +78,17 @@ abstract public class SearchPageObject extends MainPageObject
         this.waitForElementAndSendKeys(SEARCH_TEXT, search_line,"Cannot find and type into search input", 5);
     }
 
+    @Step("Typing '{search_line}' to the search line")
+    public void typeSearchLineMW(String search_line)
+    {
+        this.waitForElementAndSendKeys(SEARCH_TEXT, search_line,"Cannot find and type into search input", 5);
+    }
+
     @Step("Waiting for search results")
     public void waitForSearchResult(String title)
     {
         String search_result_xpath = getResultSearchElement(title);
-        this.waitForElementPresent(search_result_xpath, "Cannot find search result with substring " + title, 5);
+        this.waitForElementPresent(search_result_xpath, "Cannot find search result with substring " + title, 10);
     }
 
     @Step("Waiting for search results and select an article by its title and description")

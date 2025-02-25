@@ -20,9 +20,10 @@ public class SearchTests extends CoreTestCase
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
-        SearchPageObject.initSearchInput();
-        SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.waitForSearchResult("Jav (programming language)");
+//        SearchPageObject.waitForElementPresent("");
+        SearchPageObject.initSearchInputMW();
+        SearchPageObject.typeSearchLineMW("Java");
+        SearchPageObject.waitForSearchResult("Object-oriented programming language");
     }
 
     @Test
@@ -33,11 +34,11 @@ public class SearchTests extends CoreTestCase
     @Severity(value=SeverityLevel.BLOCKER)
     public void testCancelSearch()
     {
-        SearchPageObject SearchPageObject = SearchPageObjectFactory.get((AndroidDriver) driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
-        SearchPageObject.initSearchInput();
-        SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.waitForElementByTitleAndDescription("Java (programming language)", "Object-oriented programming language");
+        SearchPageObject.initSearchInputMW();
+        SearchPageObject.typeSearchLineMW("Java");
+        SearchPageObject.waitForSearchResult("Object-oriented programming language");
         SearchPageObject.waitForCancelButtonToAppear();
         SearchPageObject.clickCloseSearch();
         SearchPageObject.waitForCancelButtonToDisappear();
@@ -51,10 +52,10 @@ public class SearchTests extends CoreTestCase
     @Severity(value=SeverityLevel.BLOCKER)
     public void testSearchByTitleAndDescription()
     {
-        SearchPageObject SearchPageObject = SearchPageObjectFactory.get((AndroidDriver) driver);
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
-        SearchPageObject.initSearchInput();
-        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.initSearchInputMW();
+        SearchPageObject.typeSearchLineMW("Java");
         SearchPageObject.waitForElementByTitleAndDescription("Java (programming language)", "Object-oriented programming language");
     }
 

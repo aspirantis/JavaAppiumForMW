@@ -2,7 +2,6 @@ package lib;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.qameta.allure.Step;
-import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.ScreenOrientation;
@@ -22,7 +21,7 @@ public class CoreTestCase {
     public void setUp() throws Exception
     {
         driver = Platform.getInstance().getDriver();
-        this.createAllurePropertyFile();
+//        this.createAllurePropertyFile();
         this.Platform = new Platform();
         this.rotateScreenPortrait();
         this.openWikiWebPageForMobileWeb();
@@ -40,7 +39,9 @@ public class CoreTestCase {
         if (driver instanceof AndroidDriver) {
             AndroidDriver driver = (AndroidDriver) this.driver;
             driver.rotate(ScreenOrientation.PORTRAIT);
-        } else {
+//        if (driver instanceof AndroidDriver<?> androidDriver) {
+//            androidDriver.rotate(ScreenOrientation.PORTRAIT);
+    } else {
             System.out.println("Method rotateScreenPortrait() does nothing for platform " + Platform.getInstance().getPlatformVar());
         }
     }
@@ -50,7 +51,9 @@ public class CoreTestCase {
         if (driver instanceof AndroidDriver) {
             AndroidDriver driver = (AndroidDriver) this.driver;
             driver.rotate(ScreenOrientation.LANDSCAPE);
-        } else {
+//        if (driver instanceof AndroidDriver<?> androidDriver) {
+//            androidDriver.rotate(ScreenOrientation.LANDSCAPE);
+    } else {
             System.out.println("Method rotateScreenLandscape() does nothing for platform " + Platform.getInstance().getPlatformVar());
         }
     }
@@ -75,19 +78,19 @@ public class CoreTestCase {
         }
     }
 
-    private void createAllurePropertyFile() {
-        String path = System.getProperty("allure.results.directory");
-        try {
-            Properties props = new Properties();
-            FileOutputStream fos = new FileOutputStream(path + "/environment.properties");
-            props.setProperty("Environment", Platform.getInstance().getPlatformVar());
-            props.store(fos, "See https://github.com/allure-framework/allure-app/wiki/Environment");
-            fos.close();
-
-        } catch (Exception e) {
-            System.err.println("IO problem when writing allure properties file");
-            e.printStackTrace();
-        }
-    }
+//    private void createAllurePropertyFile() {
+//        String path = System.getProperty("allure.results.directory");
+//        try {
+//            Properties props = new Properties();
+//            FileOutputStream fos = new FileOutputStream(path + "/environment.properties");
+//            props.setProperty("Environment", Platform.getInstance().getPlatformVar());
+//            props.store(fos, "See https://github.com/allure-framework/allure-app/wiki/Environment");
+//            fos.close();
+//
+//        } catch (Exception e) {
+//            System.err.println("IO problem when writing allure properties file");
+//            e.printStackTrace();
+//        }
+//    }
 
 }

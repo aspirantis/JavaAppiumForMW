@@ -7,6 +7,7 @@ import lib.ui.android.AndroidNavigationUI;
 import lib.ui.android.AndroidSearchPageObject;
 import lib.ui.android.iOSNavigationUI;
 import lib.ui.ios.iOSSearchPageObject;
+import lib.ui.mobile_web.MWNavigationUI;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class NavigationUIFactory
@@ -18,7 +19,7 @@ public class NavigationUIFactory
             return new AndroidNavigationUI(driver);
         } else
         {
-            return new iOSNavigationUI(driver);
+            return new MWNavigationUI(driver);
         }
     }
 }

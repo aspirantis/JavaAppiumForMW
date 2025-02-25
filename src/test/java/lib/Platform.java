@@ -38,7 +38,7 @@ public class Platform
         } else if (this.isIOS()) {
             return new IOSDriver(URL, this.getIOSDesiredCapabilities());
         } else if (this.isMW()) {
-            return new RemoteWebDriver(URL, this.getMWChromeOptions());
+            return new ChromeDriver(this.getMWChromeOptions());
         } else {
             throw new Exception("Cannot detect type of the Driver. Platform value " + this.getPlatformVar());
         }
@@ -89,8 +89,30 @@ public class Platform
     }
 
 
+//    private ChromeOptions getMWChromeOptions() {
+//        Map<String, Object> deviceMetrics = new HashMap<>();
+//        deviceMetrics.put("width", 412);
+//        deviceMetrics.put("height", 915);
+//        deviceMetrics.put("pixelRatio", 3.0);
+//
+//        Map<String, Object> mobileEmulation = new HashMap<>();
+//        mobileEmulation.put("deviceMetrics", deviceMetrics);
+//        mobileEmulation.put("userAgent", "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) " +
+//                "AppleWebKit/535.19 (HTML, like Gecko) Chrome/133.0.6943.127 Mobile Safari/535.19");
+//
+//        ChromeOptions chromeOptions = new ChromeOptions();
+//        chromeOptions.addArguments("--window-size=412,915");
+//        chromeOptions.setCapability("platformName", "Windows");
+////        chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
+//        chromeOptions.setCapability("automationName", "chrome");
+//        chromeOptions.setCapability("browserName", "chrome");
+//        chromeOptions.setCapability("goog:chromeOptions", mobileEmulation);
+//
+//        return chromeOptions;
+//    }
+
     private ChromeOptions getMWChromeOptions() {
-        Map<String, Object> deviceMetrics = new HashMap<>();
+        Map<String, Object> deviceMetrics = new HashMap<String, Object>();
         deviceMetrics.put("width", 412);
         deviceMetrics.put("height", 915);
         deviceMetrics.put("pixelRatio", 3.0);
@@ -101,12 +123,7 @@ public class Platform
                 "AppleWebKit/535.19 (HTML, like Gecko) Chrome/133.0.6943.127 Mobile Safari/535.19");
 
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--window-size=412,915");
-        chromeOptions.setCapability("platformName", "Windows");
-//        chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
-        chromeOptions.setCapability("automationName", "chrome");
-        chromeOptions.setCapability("browserName", "chrome");
-        chromeOptions.setCapability("goog:chromeOptions", mobileEmulation);
+        chromeOptions.addArguments("window-size=412,915");
 
         return chromeOptions;
     }
