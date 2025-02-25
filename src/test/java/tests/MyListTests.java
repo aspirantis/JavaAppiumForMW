@@ -97,9 +97,9 @@ public class MyListTests extends CoreTestCase
         MyListsPageObject.swipeByArticleToDelete(second_article_title);
     }
 
-        @Test
-        public void testSaveThreeArticles() throws InterruptedException
-        {
+    @Test
+    public void testSaveThreeArticles() throws InterruptedException
+    {
             SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
             ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
             NavigationUI NavigationUI = NavigationUIFactory.get(driver);
